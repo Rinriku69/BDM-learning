@@ -36,3 +36,23 @@ df = pd.DataFrame(data_list, columns=cols)
 
 print("--- From Python List ---")
 print(df)
+
+
+L1 = [1,2,3,4,5]
+L2 = [4,5,6,7,8]
+V = np.array([L1,L2])
+#print(V[:,[0,2]])  
+
+rng = np.random.RandomState(2)
+metrix =rng.randint(1,4,(5,3))
+#metrix = np.delete(metrix,1,axis=0)
+print(metrix)
+
+rows, cols  = np.where(metrix == 1)
+
+
+
+print([str(row)+str(cols[i]) for i,row in enumerate(rows)])
+one = metrix == 1
+print(one.sum(axis=0))
+#print(rng.choice(range(1,5),6,replace=True))

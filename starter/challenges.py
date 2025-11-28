@@ -41,25 +41,6 @@ sorted_items = sorted(split_word_count, key=lambda x: x[1], reverse=True)
 top_3 = sorted_items[:3]
 print(top_3) """
 
-   
-    
-
-  
-    
-   
-
-
-
-   
-           
-
-
-
-  
- 
-
-
-
 
 
 
