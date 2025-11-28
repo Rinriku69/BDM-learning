@@ -31,8 +31,11 @@ df['Year'] = df['Year'].apply(int)
 df['Period'] = df['Year'].astype(str) + '-' + df['Quarter']
 
 #Make Choices to put in selectbox
-quarter = sorted(list(dict.fromkeys(df['Quarter'])))
-years = sorted(list(dict.fromkeys(df['Year'])))
+#quarter = sorted(list(dict.fromkeys(df['Quarter'])))
+quarter = sorted(list(df['Quarter'].unique().tolist()))
+#years = sorted(list(dict.fromkeys(df['Year'])))
+years = sorted(list(df['Year'].unique().tolist()))
+
 
 location = [i for i in df.columns[1:-2]]
 
@@ -101,7 +104,9 @@ else:
      metric_value = to_pop_value-from_pop_value
      metric_delta = round(((to_pop_value-from_pop_value)/from_pop_value)*100,2)
      col1.metric(label="Diffrent",value=f"{metric_value:,}",delta=f"{metric_delta}%")
-     
+     multiplier = 10000000  
+     df_plot[location_select] = df_plot[location_select] / multiplier
+
      #Chart 
      col2.line_chart(df_plot,x='Period',y=location_select,y_label="Population")
      
