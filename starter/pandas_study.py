@@ -25,14 +25,16 @@ plt.ylabel('Score')
 plt.show()'''
 
 
-arrays = np.array([[1,2,3],[4,5,6],[7,8,9]])
+'''arrays = np.array([1,2,3])
+lists = [1,2,3]
 col = ['colA','colB','colC']
 
-df = pd.DataFrame(arrays,columns=col)
-df['Student'] = ['Studenta','Studentb','Studentc']
-df = df.set_index('Student')
-print(df)
-print('-'*20)
+df = pd.DataFrame({'H1':lists
+                   ,'H2':lists})'''
+'''df['Student'] = ['Studenta','Studentb','Studentc']
+df = df.set_index('Student')'''
+#print(df.set_index('H1'))
+'''print('-'*20)
 
 print(df.iloc[0,2])
 print('-'*20)
@@ -40,4 +42,28 @@ print(df.values)
 print(df.index[0])
 print(df.columns[0])
 print(df.columns.tolist())
-print(df.index.tolist())
+print(df.index.tolist())'''
+
+df = pd.DataFrame({
+    'Age': [22, 25, 47, 52, 46, 56, 55, 60, 62, 61, 18, 28, 27, 29, 49,None],
+    'Bought_Insurance': [0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1,1],
+    'Status':['Alive','Alive','Unalive','Unalive','Alive','Unalive','Unalive','Unalive','Alive','Unalive','Alive','Alive','Alive','Alive','Alive','Alive']
+})
+#print(df.groupby('Bought_Insurance').size()) #แต่ละvalue มีกี่ตัว
+#print(df.groupby('Bought_Insurance').count()) #ในแต่ละcolumn มีกี่แถวที่มีvalue ตาม/group by bought_insurance
+#print(df.groupby('Bought_Insurance').mean()) #ค่าเฉลี่ยของแต่ละcolumn ตามvalue ของ bought_insurance
+#print(df.corr(method='pearson')) #หาสัมประสิทธิ์สหสัมพันธ์
+#print(df.isnull().sum(1)) #sum(1)เพื่อดูว่าแต่ละแถวมีข้อมูลที่หายไปกี่column
+#print(df.isnull().sum()) #แต่ละcolumn มีข้อมูลหายไปกี่แถว
+
+#df_clean = df.dropna() #ลบแถว/index ที่ข้อมูลไม่ครบ
+#print(str(df.shape) + str(df_clean.shape))
+#df_clean = df.dropna(axis=1) #ลบcolumnที่มีค่าว่าง
+#print(df.columns[(df.isnull().sum()>0)].tolist()) #list ของcolumnที่มีข้อมูลหายไปมากกว่า...
+#df.drop(column_name , axis=1) #ดรอปcolumnได้เลย
+#print(df['Age'].unique()) #เพื่อดึงข้อมูลทั้งหมดออกมา โดยเอาตัวซ้ำมาแค่อันเดียว
+
+'''print(df.dtypes)
+result ,text= pd.factorize(df['Status']) #แปลงตัวหนังสือเป็นเลข
+df['Status'] = result
+print(df['Status'])'''
