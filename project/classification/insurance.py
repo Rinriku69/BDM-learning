@@ -23,7 +23,7 @@ df = pd.DataFrame({
 })
 
 
-'''X = df[['Age']]
+X = df[['Age']]
 y = df['Bought_Insurance']
 
 model  = LogisticRegression()
@@ -34,4 +34,4 @@ prediction_data = pd.DataFrame([[age]],columns=['Age'])
 print(prediction_data)
 #print(f"อายุ 50: {model.predict([[50]])[0]}")
 print(f"อายุ {age}: {model.predict(prediction_data)[0]}")
-print(f"ความน่าจะเป็นของคนอายุ {age}: {model.predict_proba(prediction_data)}")'''
+print(f"ความน่าจะเป็นของคนอายุ {age}: {model.predict_proba(prediction_data)}")
