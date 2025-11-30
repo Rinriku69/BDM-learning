@@ -59,11 +59,18 @@ df = pd.DataFrame({
 #df_clean = df.dropna() #ลบแถว/index ที่ข้อมูลไม่ครบ
 #print(str(df.shape) + str(df_clean.shape))
 #df_clean = df.dropna(axis=1) #ลบcolumnที่มีค่าว่าง
+#df.columns[(df.isnull().sum()>0)] #คอลลัมที่มีค่าnullมากกว่า0
+#df.index[(df.isnull().sum(1)>0)] #แถวที่มีค่าnullมากกว่า0
 #print(df.columns[(df.isnull().sum()>0)].tolist()) #list ของcolumnที่มีข้อมูลหายไปมากกว่า...
 #df.drop(column_name , axis=1) #ดรอปcolumnได้เลย
 #print(df['Age'].unique()) #เพื่อดึงข้อมูลทั้งหมดออกมา โดยเอาตัวซ้ำมาแค่อันเดียว
 
-'''print(df.dtypes)
-result ,text= pd.factorize(df['Status']) #แปลงตัวหนังสือเป็นเลข
-df['Status'] = result
-print(df['Status'])'''
+print(df.dtypes)
+result = pd.factorize(df['Status']) #แปลงตัวหนังสือเป็นเลข
+df['Status'] = result[0]
+print(df['Status'])
+
+del_row = df.index[(df.isnull().sum(1)>0)].tolist()
+x = df.dropna()
+print(df)
+print(x)
