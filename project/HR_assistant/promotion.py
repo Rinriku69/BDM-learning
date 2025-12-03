@@ -17,19 +17,22 @@ data = {
 
 data = pd.DataFrame(data)
 
+@st.cache_data
 def target_encoder (data):
     l_encode = LabelEncoder()
     l_encode.fit(data['Promoted'])
     
     return l_encode
 
+@st.cache_data
 def feature_encoder(data):
     x_cols = data.columns[0:2]
     ore = OrdinalEncoder()
-    ore.fit(data[x_cols])
+    ore.fit(data[x_cols].values)
  
     return ore
 
+@st.cache_data
 def data_encode(data,_x_encoder,_y_encoder):
     x_cols = data.columns[0:2]
     data[x_cols] = _x_encoder.transform(data[x_cols])
@@ -37,13 +40,15 @@ def data_encode(data,_x_encoder,_y_encoder):
 
     return data
 
+@st.cache_resource
 def train_model(encoded_data):
     lr = LogisticRegression()
     x = encoded_data.drop('Promoted',axis=1)
     y = encoded_data['Promoted']
-    lr.fit(x,y)
+    lr.fit(x.values,y)
     
     return lr
+
 
 def predict_data(_model,_x_encoder,_x_data):
     x_data_2d = np.array(_x_data[:2]).reshape(1,-1)
@@ -78,5 +83,5 @@ if submitted:
 
 
     pred =predict_data(lgr,x_encoder,x_data)
-    #print(pred[0]==1)
+   
     st.write(f"You will be promoted" if pred ==1 else "You will not be promoted")

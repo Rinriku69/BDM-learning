@@ -42,7 +42,7 @@ def train_model(data):
     
     # แปลง X เฉพาะคอลัมน์ที่เป็น Text
     X[['Department', 'Education']] = oe.transform(X[['Department', 'Education']])
-    
+
     # สร้างและสอนโมเดล
     lr = LogisticRegression()
     lr.fit(X, y)
@@ -52,19 +52,26 @@ def train_model(data):
 # ฟังก์ชันทำนาย (รับ Encoder เข้ามาด้วย)
 def make_prediction(model, oe, user_input):
     # 1. แยกส่วน Text กับ Number
-    text_data = [user_input[:2]] # ['Sales', 'Master'] (ต้องเป็น 2 มิติ [[...]])
+    text_data = pd.DataFrame([user_input[:2]], columns=['Department', 'Education'])
+    
     num_data = user_input[2]     # 85
     
     # 2. แปลง Text เป็นตัวเลข
     encoded_text = oe.transform(text_data) # ได้ออกมาเป็น [[0. 1.]]
-    
+
     # 3. เอาตัวเลขมารวมร่างกัน (Concatenate)
     # รวม [[0, 1]] กับ [[85]] ให้กลายเป็น [[0, 1, 85]]
     # (ใช้ np.hstack คือการเอามาแปะต่อท้ายแนวนอน)
-    final_features = np.hstack((encoded_text, [[num_data]]))
+    final_features_np = np.hstack((encoded_text, [[num_data]]))
     
-    # 4. ทำนาย
-    pred = model.predict(final_features)
+    
+    # 4. (จุดสำคัญ!) แปลงกลับเป็น DataFrame พร้อมชื่อคอลัมน์ (แก้ Warning ของ Model)
+    # ต้องเรียงชื่อให้เหมือนตอน Train เป๊ะๆ
+    feature_names = ['Department', 'Education', 'Performance']
+    final_features_df = pd.DataFrame(final_features_np, columns=feature_names)
+    
+    # 5. ทำนาย
+    pred = model.predict(final_features_df)
     return pred[0]
 
 # 3. User Interface
