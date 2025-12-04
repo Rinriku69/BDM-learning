@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 
 
-URL = "https://raw.githubusercontent.com/marcopeix/MachineLearningModelDeploymentwithStreamlit/master/12_dashboard_capstone/data/quarterly_canada_population.csv"
+URL = "quarterly_canada_population.csv"
 
 @st.cache_data
 def read_data():   
