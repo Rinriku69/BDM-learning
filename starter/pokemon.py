@@ -105,7 +105,7 @@ print(f"High-profit products : {' '.join(products[[i for i in range(profits.shap
 print(f"Weak branches : {' '.join(branches[[i for i in range(profits.shape[1]) if np.average(profits[:,i]) < 5]])}")
 
 new_profit = np.delete(profits,[i for i in range(profits.shape[1]) if np.average(profits[:,i]) < 5],axis=1)
-print(f"Matrix without weak branches: {new_profit}") 
+print(f"Matrix without weak branches: \n{new_profit}") 
  
 #profits[3,1] = -50
 
